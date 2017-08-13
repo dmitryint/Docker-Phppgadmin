@@ -10,30 +10,46 @@
     // An example server.  Create as many of these as you wish,
     // indexed from zero upwards.
 
+    $servers = explode(",", getenv("DB_HOST"));
+    $i = 0;
+    foreach($servers as $server) {
+        $server = trim($server);
+
+        $conf['servers'][$i]['desc'] = $server;
+        $conf['servers'][$i]['host'] = $server;
+        $conf['servers'][$i]['port'] = 5432;
+        $conf['servers'][$i]['sslmode'] = 'allow';
+        $conf['servers'][$i]['defaultdb'] = 'template1';
+        $conf['servers'][$i]['pg_dump_path'] = '/usr/bin/pg_dump';
+        $conf['servers'][$i]['pg_dumpall_path'] = '/usr/bin/pg_dumpall';
+
+        $i++;
+    }
+    
     // Display name for the server on the login screen
-    $conf['servers'][0]['desc'] = getenv("DB_HOST");
+    // $conf['servers'][0]['desc'] = getenv("DB_HOST");
 
     // Hostname or IP address for server.  Use '' for UNIX domain socket.
     // use 'localhost' for TCP/IP connection on this computer
-    $conf['servers'][0]['host'] = getenv("DB_HOST");
+    // $conf['servers'][0]['host'] = getenv("DB_HOST");
 
     // Database port on server (5432 is the PostgreSQL default)
-    $conf['servers'][0]['port'] = getenv("DB_PORT");
+    // $conf['servers'][0]['port'] = getenv("DB_PORT");
 
     // Database SSL mode
     // Possible options: disable, allow, prefer, require
     // To require SSL on older servers use option: legacy
     // To ignore the SSL mode, use option: unspecified
-    $conf['servers'][0]['sslmode'] = 'allow';
+    // $conf['servers'][0]['sslmode'] = 'allow';
 
     // Change the default database only if you cannot connect to template1.
     // For a PostgreSQL 8.1+ server, you can set this to 'postgres'.
-    $conf['servers'][0]['defaultdb'] = 'template1';
+    // $conf['servers'][0]['defaultdb'] = 'template1';
 
     // Specify the path to the database dump utilities for this server.
     // You can set these to '' if no dumper is available.
-    $conf['servers'][0]['pg_dump_path'] = '/usr/bin/pg_dump';
-    $conf['servers'][0]['pg_dumpall_path'] = '/usr/bin/pg_dumpall';
+    // $conf['servers'][0]['pg_dump_path'] = '/usr/bin/pg_dump';
+    // $conf['servers'][0]['pg_dumpall_path'] = '/usr/bin/pg_dumpall';
 
     // Example for a second server (PostgreSQL for Windows)
     //$conf['servers'][1]['desc'] = 'Test Server';
